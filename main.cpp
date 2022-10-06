@@ -49,7 +49,7 @@ int main()
   std::vector<double>y;
 
   //Calculates fourier Series depending on the range, iteration number and xStep values desired.
-  fourierSineSeries(x, y, -4.0, 4.0, 50, 0.01);
+  fourierSineSeries(x, y, -4.0, 4.0, 50, 0.001);
 
   //The following transforms the vectors into arrays so that they can be inserted into the TGraph constructor
   double xArray[x.size()];
@@ -59,8 +59,6 @@ int main()
   {
     xArray[i] = x[i];
     yArray[i] = y[i];
-
-    std::cout << '\n' << xArray[i] << " " << yArray[i] << '\n';
   }
 
   //Constructs a graph with the inputed amount of points, the array of x values and the array of y values
@@ -78,7 +76,7 @@ int main()
   //Prints result to a pdf
   c->Print("demo1.pdf");
 
-  
+
   return 0;
 
 }
