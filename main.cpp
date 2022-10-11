@@ -5,6 +5,26 @@
 #include <vector>
 #include <algorithm>
 
+void populateXAxis(std::vector<double> &xValues, double minX, double maxX, double xStep)
+{
+  for (double x = minX; x < maxX; x += xStep)
+  {
+    xValues.push_back(x);
+  }
+}
+
+void polynomialEquation(std::vector<double> &xValues, std::vector<double> &yValues, double minX, double maxX, double xStep)
+{
+  double currentY;
+  populateXAxis(xValues, minX, maxX, xStep);
+  for(int i = 0; i < xValues.size(); i++)
+  {
+    currentY = std::pow(xValues[i],2);
+    yValues.push_back(currentY);
+  }
+
+}
+
 
 //Fourier Series Function, fills out xValues arrays with x values and yValues array with y values
 //xValues is calculated depending on the amount of points you want, which is calculated by getting the range between minX and maxX and then dividing it by xStep, or how much we are changing x by.
@@ -22,6 +42,7 @@ void fourierSineSeries(std::vector<double> &xValues, std::vector<double> &yValue
     //Inserts current x value into the Array.
     xValues.push_back(x);
     //Nested for loop that calculates fourier series summation, as you increase the number of iterations, y values get more Accurate.
+    //You may change
     for(int n = 1; n <= iterations; n++)
     {
       top = (-2)*(std::pow(-1,n))*std::sin(n*x);
@@ -49,7 +70,10 @@ int main()
   std::vector<double>y;
 
   //Calculates fourier Series depending on the range, iteration number and xStep values desired.
-  fourierSineSeries(x, y, -4.0, 4.0, 50, 0.001);
+  //fourierSineSeries(x, y, -12.0, 12.0, 150, 0.001);
+
+  //Calculates polynomial graph on the range and xStep values desired
+  polynomialEquation(x, y, -10, 10, .01);
 
   //The following transforms the vectors into arrays so that they can be inserted into the TGraph constructor
   double xArray[x.size()];
@@ -68,7 +92,7 @@ int main()
   FourierGraph->SetLineColor(kBlue+1);
 
   //Sets the title of the function
-  FourierGraph->SetTitle("Fourier Series of f(t) = t | -pi < t < pi ;x; f(t)");
+  FourierGraph->SetTitle("Graph of f(t) = t^2 | -10 < t < 10 ;x; f(t)");
 
   //Draws graph
   FourierGraph->Draw();
